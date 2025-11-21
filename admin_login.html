@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login - Titanic Pharmaceuticals</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/22446c8bd7.js" crossorigin="anonymous"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+    :root {
+      /* Pulled from your main site's CSS */
+      --primary-color: #007bff;
+      --secondary-color: #04a5dd;
+      --accent-color: #ff7a59;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .login-wrapper {
+      max-width: 1000px;
+      width: 100%;
+      background-color: #ffffff;
+      border-radius: 1.5rem; /* Softer, more modern radius */
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      overflow: hidden; /* Important for keeping the rounded corners */
+      display: flex;
+    }
+
+    /* === Branding Column (Left Side) === */
+    .login-branding {
+      flex-basis: 50%;
+      background: linear-gradient(135deg, rgba(0, 123, 255, 0.85), rgba(4, 165, 221, 0.85)),
+        url(images/cowss.png) no-repeat center center/cover;
+      /* Using the cow image from your main site for brand consistency */
+      color: #ffffff;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .login-branding h1 {
+      font-weight: 700;
+      font-size: 2.25rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-branding p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* === Form Column (Right Side) === */
+    .login-form {
+      flex-basis: 50%;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .login-form .logo {
+      width: 180px;
+      margin-bottom: 1.5rem;
+      align-self: center;
+    }
+
+    .login-form h2 {
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .form-floating label {
+      color: #6c757d;
+    }
+
+    .btn-login {
+      /* Using your site's accent color for the primary button */
+      background: linear-gradient(135deg, var(--accent-color), #ff5733);
+      border: none;
+      padding: 0.85rem;
+      font-weight: 600;
+      font-size: 1.05rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(255, 122, 89, 0.4);
+    }
+    
+    .btn-login:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(255, 122, 89, 0.5);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+    
+    /* === Responsive Design === */
+    @media (max-width: 992px) {
+      .login-wrapper {
+        flex-direction: column;
+        max-width: 500px;
+      }
+      .login-branding {
+        flex-basis: auto;
+        padding: 2.5rem;
+        border-radius: 1.5rem 1.5rem 0 0;
+      }
+      .login-form {
+        flex-basis: auto;
+        padding: 2.5rem;
+        border-radius: 0 0 1.5rem 1.5rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      body {
+        padding: 1rem;
+      }
+      .login-branding, .login-form {
+        padding: 2rem;
+      }
+      .login-branding h1 {
+        font-size: 1.75rem;
+      }
+      .login-form .logo {
+        width: 150px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="login-wrapper">
+
+    <div classT="login-branding d-none d-lg-flex">
+      <div>
+        <!-- <h1>Admin Panel</h1> -->
+        <p class="ps-3 pt-2">Titanic Pharmaceuticals Pvt. Ltd.</p>
+      </div>
+    </div>
+
+    <div class="login-form">
+      <form>
+        <div class="text-center">
+          <img class="logo" src="images/logo.png" alt="Titanic Pharmaceuticals Logo" />
+          <h2 class="h3 mb-4 fw-bold">Administrator Login</h2>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required />
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required />
+          <label for="floatingPassword">Password</label>
+        </div>
+        
+        <!-- <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">
+              Remember me
+            </label>
+          </div>
+          <a href="#" class="small text-decoration-none">Forgot password?</a>
+        </div> -->
+
+
+        <button class="w-100 btn btn-lg btn-login text-white" type="submit">
+          <i class="fa-solid fa-right-to-bracket me-2"></i>Sign In
+        </button>
+        
+        <p class="mt-4 text-center copyright">&copy; 2025 Titanic Pharmaceuticals</p>
+      </form>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

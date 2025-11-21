@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Titanic Pharmaceuticals</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/22446c8bd7.js" crossorigin="anonymous"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+    :root {
+      --primary-color: #007bff;
+      --secondary-color: #04a5dd;
+      --accent-color: #ff7a59;
+      --light-bg: #f8f9fa;
+      --white: #ffffff;
+      --text-dark: #2c3e50;
+      --text-muted: #6c757d;
+      
+      /* Collapsible Sidebar Sizing */
+      --sidebar-width-expanded: 280px;
+      --sidebar-width-collapsed: 90px;
+      --border-radius: 1rem;
+      --transition-speed: 0.3s ease;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--light-bg);
+    }
+
+    /* === Sidebar Styles === */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: var(--sidebar-width-collapsed); /* Collpased by default */
+      z-index: 1000;
+      padding: 1.5rem 1rem;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+      color: #fff;
+      transition: width var(--transition-speed);
+    }
+    
+    /* Expanded State */
+    .sidebar.expanded {
+      width: var(--sidebar-width-expanded);
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .sidebar-brand img {
+      width: 45px; /* Small logo when collapsed */
+      transition: width var(--transition-speed);
+    }
+    .sidebar.expanded .sidebar-brand img {
+      width: 150px; /* Full logo when expanded */
+    }
+
+    .sidebar .nav-link {
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 500;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      transition: all var(--transition-speed);
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Center icon when collapsed */
+    }
+    .sidebar.expanded .nav-link {
+      justify-content: flex-start; /* Align left when expanded */
+    }
+    
+    .sidebar .nav-link:hover {
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .sidebar .nav-link.active {
+      color: #fff;
+      background: var(--primary-color);
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    }
+    .sidebar .nav-link i {
+      width: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+      transition: margin var(--transition-speed);
+    }
+    .sidebar.expanded .nav-link i {
+      margin-right: 0.75rem;
+    }
+    
+    /* Hide text when collapsed */
+    .sidebar .nav-link-text {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      white-space: nowrap;
+    }
+    .sidebar.expanded .nav-link-text {
+      display: inline;
+      opacity: 1;
+    }
+
+    .sidebar-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .sidebar-toggle-desktop {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: none;
+      width: 100%;
+      text-align: center;
+      border-radius: 0.5rem;
+      padding: 0.75rem 0;
+    }
+    .sidebar-toggle-desktop:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    .sidebar-toggle-desktop .fa-chevron-right {
+      transition: transform var(--transition-speed);
+    }
+    .sidebar.expanded .sidebar-toggle-desktop .fa-chevron-right {
+      transform: rotate(180deg);
+    }
+
+    /* === Main Content & Topbar Styles === */
+    .main-content {
+      margin-left: var(--sidebar-width-collapsed); /* Match collapsed sidebar */
+      padding: 0;
+      transition: margin-left var(--transition-speed);
+    }
+    .sidebar.expanded ~ .main-content {
+      margin-left: var(--sidebar-width-expanded); /* Match expanded sidebar */
+    }
+
+    .topbar {
+      background-color: var(--white);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .topbar-search {
+      max-width: 400px;
+    }
+    .topbar-nav .nav-link {
+      color: var(--text-muted);
+    }
+    .topbar-nav .nav-link:hover {
+      color: var(--text-dark);
+    }
+    .topbar-nav .dropdown-toggle::after {
+      display: none; /* Hide default dropdown arrow */
+    }
+    .topbar-nav .profile-pic {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* === Main Content Area === */
+    .content-fluid {
+      padding: 2rem;
+    }
+    
+    .page-title {
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 1.5rem;
+    }
+
+    /* === KPI Card Style === */
+    .card-kpi {
+      border: none;
+      border-radius: var(--border-radius);
+      background-color: var(--white);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    .card-kpi:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    }
+    .kpi-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      color: var(--white);
+    }
+    .kpi-content h6 {
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+    .kpi-content .h2 {
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    /* === Responsive === */
+    @media (max-width: 992px) {
+      /* On mobile, sidebar is hidden by default */
+      .sidebar {
+        left: calc(var(--sidebar-width-expanded) * -1);
+        width: var(--sidebar-width-expanded); /* Always full width on mobile */
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      /* Mobile toggle adds 'active' */
+      .sidebar.active {
+        left: 0;
+      }
+      /* Hide desktop toggle on mobile */
+      .sidebar-toggle-desktop {
+        display: none;
+      }
+      .topbar-search {
+        display: none;
+      }
+      .content-fluid {
+        padding: 1.5rem;
+      }
+      .topbar {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="sidebar" id="admin-sidebar">
+    <div>
+      <a class="sidebar-brand" href="admin_dashboard.html">
+        <img src="images/logo.png" alt="Titanic Logo" />
+      </a>
+
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a href="admin_dashboard.html" class="nav-link active" title="Dashboard"> <i class="fa-solid fa-house"></i>
+            <span class="nav-link-text">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="admin_queries.html" class="nav-link" title="Contact Queries">
+            <i class="fa-solid fa-envelope"></i>
+            <span class="nav-link-text">Contact Queries</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="admin_applications.html" class="nav-link" title="Job Applications">
+            <i class="fa-solid fa-briefcase"></i>
+            <span class="nav-link-text">Job Applications</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="admin_products.html" class="nav-link" title="Manage Products">
+            <i class="fa-solid fa-box-archive"></i>
+            <span class="nav-link-text">Products</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="btn sidebar-toggle-desktop mb-3" id="desktop-sidebar-toggle" title="Toggle Sidebar">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      
+      <a href="admin_login.html" class="nav-link" title="Logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span class="nav-link-text">Logout</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="main-content" id="main-content">
+    
+    <nav class="topbar">
+      <button class="btn btn-light d-lg-none" type="button" id="mobile-sidebar-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <form class="d-none d-lg-flex" role="search">
+        <div class="input-group topbar-search">
+          <span class="input-group-text bg-light border-0">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+          <input class="form-control bg-light border-0" type="search" placeholder="Search..." aria-label="Search" />
+        </div>
+      </form>
+      
+      <ul class="nav nav-pills topbar-nav">
+        <li class="nav-item">
+          <a class="nav-link position-relative" href="#">
+            <i class="fa-solid fa-bell fs-5"></i>
+            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+              <span class="visually-hidden">New alerts</span>
+            </span>
+          </a>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="d-none d-md-inline me-2">Admin</span>
+            <i class="fa-solid fa-user-circle fs-3"></i> 
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user-gear me-2"></i>Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-sliders me-2"></i>Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="admin_login.html"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="content-fluid">
+      <h1 class="page-title">Dashboard</h1>
+
+      <section class="row g-4 mb-4">
+        <div class="col-md-6 col-xl-3">
+          <div class="card card-kpi">
+            <div class="card-body d-flex align-items-center justify-content-between">
+              <div class="kpi-content">
+                <h6 class="card-title">New Queries</h6>
+                <span class="h2 fw-bold">12</span>
+              </div>
+              <div class="kpi-icon bg-primary">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+          <div class="card card-kpi">
+            <div class="card-body d-flex align-items-center justify-content-between">
+              <div class="kpi-content">
+                <h6 class="card-title">New Applications</h6>
+                <span class="h2 fw-bold">5</span>
+              </div>
+              <div class="kpi-icon bg-success">
+                <i class="fa-solid fa-briefcase"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+          <div class="card card-kpi">
+            <div class="card-body d-flex align-items-center justify-content-between">
+              <div class="kpi-content">
+                <h6 class="card-title">Pending Action</h6>
+                <span class="h2 fw-bold">17</span>
+              </div>
+              <div class="kpi-icon" style="background-color: var(--accent-color);">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-xl-3">
+          <div class="card card-kpi">
+            <div class="card-body d-flex align-items-center justify-content-between">
+              <div class="kpi-content">
+                <h6 class="card-title">Active Products</h6>
+                <span class="h2 fw-bold">28</span>
+              </div>
+              <div class="kpi-icon" style="background-color: var(--secondary-color);">
+                <i class="fa-solid fa-box-archive"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebar = document.getElementById('admin-sidebar');
+      
+      // === Desktop Toggle & LocalStorage ===
+      const desktopToggle = document.getElementById('desktop-sidebar-toggle');
+      if (desktopToggle) {
+        // Check localStorage on page load
+        if (localStorage.getItem('sidebarExpanded') === 'true') {
+          sidebar.classList.add('expanded');
+        }
+        
+        desktopToggle.addEventListener('click', function() {
+          sidebar.classList.toggle('expanded');
+          // Save preference to localStorage
+          localStorage.setItem('sidebarExpanded', sidebar.classList.contains('expanded'));
+        });
+      }
+
+      // === Mobile Toggle ===
+      const mobileToggle = document.getElementById('mobile-sidebar-toggle');
+      if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+          sidebar.classList.toggle('active');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

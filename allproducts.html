@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Products - Titanic Pharma</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/22446c8bd7.js" crossorigin="anonymous"></script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #007bff;
+      --secondary-color: #04a5dd;
+      --accent-color: #ff7a59;
+      --dark-bg: #1a1a1a;
+      --light-bg: #f8f9fa;
+      --text-dark: #2c3e50;
+      --text-light: #6c757d;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      background-position: center;
+      background-attachment: fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      /* Added padding to prevent content from hiding behind the fixed navbar */
+      padding-top: 85px;
+    }
+
+    header,
+    section,
+    footer {
+      overflow-x: hidden;
+    }
+
+    /* === Updated Navbar Styling === */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+
+      /* Initial frosted glass effect */
+      background-color: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      /* For Safari */
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+      padding: 1rem 0;
+      transition: var(--transition);
+    }
+
+    /* Style for when navbar is scrolled */
+    .navbar.scrolled {
+      background-color: #ffffff;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      padding: 0.5rem 0;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      border-bottom: none;
+    }
+
+    .img-logo {
+      width: 180px;
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-dark);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .navbar-nav .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: var(--primary-color);
+    }
+
+    .navbar-nav .nav-link:hover::after {
+      width: 70%;
+    }
+
+    .navbar-nav .nav-item {
+      transition: var(--transition);
+      border-radius: 8px;
+    }
+
+    .navbar-nav .nav-item:hover {
+      background-color: rgba(0, 123, 255, 0.05);
+    }
+
+    .navbar-nav .nav-item .btn {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1.25rem;
+    }
+
+    /* Products Section */
+    .products-section {
+      background-color: rgba(245, 245, 245, 0.26);
+      padding: 2rem 0 4rem;
+      margin: 0;
+    }
+
+    /* Card Styling */
+    .product-card {
+      height: 100%;
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 15px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Image Container */
+    .card-img-container {
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e3e8ef 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      position: relative;
+    }
+
+    .card-img-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(0, 200, 200, 0.05));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-card:hover .card-img-container::before {
+      opacity: 1;
+    }
+
+    .card-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .card-img-container img {
+      transform: scale(1.05);
+    }
+
+    /* Card Body */
+    .card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-title {
+      color: #0d6efd;
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 1rem;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+    }
+
+    .product-info {
+      flex-grow: 1;
+    }
+
+    .product-info p {
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-size: 0.9rem;
+    }
+
+    .product-info strong {
+      color: #333;
+    }
+
+    /* Button Styling */
+    .btn-view-details {
+      background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+      border: none;
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      box-shadow: 0 4px 15px rgba(13, 110, 253, 0.4);
+    }
+
+    .btn-view-details:hover {
+      box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4);
+      background: linear-gradient(135deg, #0a58ca 0%, #0d6efd 100%);
+      color: white;
+    }
+
+    /* Modal Styling */
+    .modal-content {
+      border-radius: 15px;
+      border: none;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #0d6efd 0%, #0a57cada 100%);
+      color: white;
+      border: none;
+      padding: 1rem;
+    }
+
+    .modal-title {
+      font-weight: 700;
+      color: white !important;
+    }
+
+    .modal-body {
+      padding: 2rem;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .modal-body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .modal-body::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    .modal-body::-webkit-scrollbar-thumb {
+      background: #0d6efd;
+      border-radius: 4px;
+    }
+
+    .modal-body li {
+      margin-bottom: 0.5rem;
+      color: #555;
+    }
+
+    .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    /* Footer Styling */
+    footer {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+      color: rgba(255, 255, 255, 0.8);
+      padding: 4rem 0 0;
+    }
+
+    footer h3 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+    }
+
+    footer a:hover {
+      color: var(--secondary-color);
+      transform: translateX(5px);
+    }
+
+    footer .contact-info a:hover {
+      transform: none;
+      /* Disable shift for contact links */
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    footer ul li {
+      margin-bottom: 0.8rem;
+    }
+
+    footer .contact-info p {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    footer .contact-info i {
+      color: var(--secondary-color);
+      font-size: 1.2rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      background: var(--secondary-color);
+      transform: translateY(-5px);
+    }
+
+    .copyright {
+      background: #000000;
+      padding: 1.5rem 0;
+      margin-top: 3rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dropdownbtnevnt {
+      border: none;
+      font-size: 19px;
+      color: #676767;
+      transform: translateY(8px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      body {
+        padding-top: 75px;
+        /* Adjust padding for smaller screens */
+      }
+
+      .card-img-container {
+        height: 200px;
+      }
+
+      .card-title {
+        font-size: 1rem;
+        min-height: auto;
+      }
+
+      .modal-body {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .card-img-container {
+        height: 180px;
+      }
+
+      .img-logo {
+        width: 150px;
+      }
+
+      .products-section {
+        padding: 1rem 0 2rem;
+      }
+    }
+
+    /* Loading Animation */
+    .fade-in {
+      animation: fadeIn 0.6s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <div class="img-logo">
+          <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Titanic Pharmaceuticals"
+              width="100%" /></a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="aboutus.html">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Our-missionPage.html">Our Mission</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Allproducts.html">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="careers.html">Careers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="events.html">Events</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="contact.html">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section class="products-section m-0 py-5">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/product1.png" alt="T-Cee-INJ" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">T-Cee-INJ</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 30 and 100 ml.</p>
+                <p><strong>Administration:</strong> IV, IM, SC</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal1">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/product2.png" alt="Topvet-FM-INJ" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Topvet-FM-INJ</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 20 & 100 ml.</p>
+                <p><strong>Administration:</strong> Slow IV & IM Use</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal2">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/product3.png" alt="XB-FORTE-INJ" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">XB-FORTE-INJ</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 4.5gm.</p>
+                <p><strong>Administration:</strong> IM/IV/SC route</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal3">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/product4.png" alt="Ceftin-4-INJ" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Ceftin-4-INJ</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 4 gm.</p>
+                <p><strong>Administration:</strong> I.M./ I.V. & S.C.</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal4">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/5.png" alt="FMO-2-INJ" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">FMO-2-INJ</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 20/100 ml.</p>
+                <p><strong>Administration:</strong> For Use in Slow IV., IM. & SC</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal5">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/Tivile.png" alt="Tivile Bolus">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Tivile Plus Bolus</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 4 bolus in a strip.</p>
+                <p><strong>Administration:</strong> Oral</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal25">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/re-fresh bolus-fotor-bg-remover-20251011163417.png" alt="Re-Fresh Bolus">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Re-Fresh Bolus</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 1 Bolus.</p>
+                <p><strong>Administration:</strong> Oral</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal7">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/8.png" alt="Sapasmvet">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Sapasmvet</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 30 and 100 ml.</p>
+                <p><strong>Administration:</strong>IM. route Only</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal8">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/9.png" alt="Topvet-Bolus(Vet.)">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Topvet-Bolus(Vet.)</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 4 Bolus in a Strip.</p>
+                <p><strong>Administration:</strong> Oral</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal9">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/10-fotor-bg-remover-2025101117116.png" alt="Tiflox TZ">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Tiflox TZ</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 2 Bolus in a Strip.</p>
+                <p><strong>Administration:</strong> Oral</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal10">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/aben.png" alt="ABEN-INJ">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">ABEN-INJ</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 100 ml. vial.</p>
+                <p><strong>Administration:</strong> I.M./ I.V. & S.C.</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal11">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/12.png" alt="Tiflox-OZE IU.">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Tiflox-OZE IU.</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 60ml. & 300ml.</p>
+                <p><strong>Administration:</strong> IU</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal12">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/13-fotor-bg-remover-20251011165436.png" alt="Tiflox-SP–new-Bolus">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Tiflox-SP–new-Bolus</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 2 Bolus in a strip</p>
+                <p><strong>Administration:</strong> Oral</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal13">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/14-fotor-bg-remover-20251011165331.png" alt="Topvet-INJ">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Topvet-INJ</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 100 ml.</p>
+                <p><strong>Administration:</strong> I.M. Route Only.</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal14">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/Ai conciv (1)-fotor-bg-remover-20251011153747.png" alt="AI-CONCIV FORTE">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">AI-CONCIV FORTE</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 300 ml.</p>
+                <p><strong>Administration:</strong> Orally</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal15">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/charkol new.png" alt="Charkol">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Charkol</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 500 ml.</p>
+                <p><strong>Administration:</strong> Orally</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal16">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/Jugali Ult-fotor-bg-remover-2025101116288.png" alt="Jugali-Ultra-Powder">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Jugali-Ultra-Powder</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 200 gm. & 500 gm.</p>
+                <p><strong>Administration:</strong> -NA-</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal17">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/jugali ultra bolus-fotor-bg-remover-20251011165010.png" alt="Jugali-Ultra-Bolus">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Jugali-Ultra-Bolus</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> Stripe of 4 bolus.</p>
+                <p><strong>Administration:</strong> -NA-.</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal18">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/19-fotor-bg-remover-20251011164854.png" alt="Re-Fresh Suspension">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Re-Fresh Suspension</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 30,90 and 1000 ml.</p>
+                <p><strong>Administration:</strong> Orally</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal19">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/20-fotor-bg-remover-20251011164659.png" alt="Placentol">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">ROP Run</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong>990 ml.</p>
+                <p><strong>Administration:</strong> Oral</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal20">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/Vet Tcm Mix 5.png" alt="Vet. TCM-MIX">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Vet. TCM-MIX</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 1.2 kg, 5 kg. </p>
+                <p><strong>Administration:</strong> Oral</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal21">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img style="height: 80%;" src="productimg/fm ultra-fotor-bg-remover-20251011164150.png"
+                alt="Topvet-FM ultra bolus">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Topvet-FM ultra bolus</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 100 ml.</p>
+                <p><strong>Administration:</strong> I.M. Route Only.</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal26">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/upshot-h.png" alt="Up-Shot H">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Up-Shot H</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 1000 ml.</p>
+                <p><strong>Administration:</strong> Orally</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal23">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/Doram 50.jpeg" alt="Dorametic INJ">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Dorametic INJ</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 10 & 50 ml.</p>
+                <p><strong>Administration:</strong> IM or SC route </p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal24">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/image.png" alt="Vet. Titanic soap">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Vet. Titanic soap</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 75 gm</p>
+                <p><strong>Administration:</strong> -NA-</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal27">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+          <div class="product-card fade-in">
+            <div class="card-img-container">
+              <img src="productimg/20251016_214153-fotor-bg-remover-20251016214839.png" alt="Vet. Titanic soap">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">UpShot gel</h5>
+              <div class="product-info">
+                <p><strong>Presentation:</strong> 300 ml.</p>
+                <p><strong>Administration:</strong> Orally</p>
+              </div>
+              <button class="btn btn-view-details w-100" data-bs-toggle="modal" data-bs-target="#modal28">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal fade" id="modal1" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">T-Cee-INJ</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each ml. Contains Ascorbic Acid (I.P.) 250 mg.</p>
+          <p><strong>Dosage:</strong> 20-30 ml. in a Day or as directed by Veterinarian</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Helps in wound healing (mastitis and metritis)</li>
+            <li>Antioxidant Properties</li>
+            <li>Maintain Immune System Function</li>
+            <li>Homoglobinuria and hematuria</li>
+            <li>Gastrointestinal bleeding, bloody diarrhea and blood in milk</li>
+            <li>High Temperature and heat stroke</li>
+            <li>Helps to cure FMD</li>
+            <li>Environmental stress</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Topvet-FM-INJ</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Flunixin meglumine USP 83 mg. Eq. to Flunixin 50 mg</p>
+          <p><strong>Dosage:</strong> HORSE: 0.5 mg per Pound Body Weight (10 ml per day) , GOAT & SHEEP: 2-3 ml. IM per
+            day , CATTLE : 1.1 to 1.2 mg/kg
+
+            <body>
+              Weight ( 10ml to 20 ml / day )
+            </body> Or As Directed by Veterinarian
+          </p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Mastitis & Metritis</li>
+            <li>Pyrexia and Trauma.</li>
+            <li>Respiratory Disorder</li>
+            <li>Lameness and Arthritis</li>
+            <li>All Types of Colic & Pain.</li>
+            <li>All Type of Inflammation</li>
+            <li>Hemorrhagic Septicemia (H.S.)</li>
+          </ul>
+
+          <p><strong>Benefits:</strong></p>
+          <ul>
+            <li>A class cyclo-oxygenase inhibitory NSAID ( acts against both cox1 and cox2 ).</li>
+            <li>Effective against colic pain, billiary colic and renal Colic</li>
+            <li>No need for morning or evening , just once a day.</li>
+            <li>No added paracetamol in this as it is not needed.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal3" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">XB-FORTE-INJ</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each vial contains: Amoxycillin Sodium-3000 mg & Sulbactam Sodium-1500 mg.
+          </p>
+          <p><strong>Dosage:</strong> 10 to 12 mg/kg body weight</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Mastitis</li>
+            <li>Metritis</li>
+            <li>Respiratory Tract Infections</li>
+            <li>Urinary Tract Infections</li>
+            <li>Uro- Genital Tract Infections</li>
+            <li>Skin & Soft Tissue Infections</li>
+            <li>Infections of the Bones & joints</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal4" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ceftin-4-INJ</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each vial contains: Ceftriaxone 4000 mg. Injection</p>
+          <p><strong>Dosage:</strong> 8-10 mg./kg. body wt. or as per recommendation of veterinarian.</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Mastitis & Metritis</li>
+            <li>Diarrhoea & Dysentery.</li>
+            <li>Urinary tract infections.</li>
+            <li>Respiratory tract infections</li>
+            <li>Hemorrhagic septicemia</li>
+            <li>Wound, skin & soft tissue infections</li>
+            <li>Bone & Joint infections</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal5" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">FMO-2-INJ</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong>Fluixin:50 mg. & Ofloxacin: 50mg each ml</p>
+          <p><strong>Dosage:</strong> 2-3 mg./kg. B. Wt. Or As Directed by Veterinarian .</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Prolapse</li>
+            <li>Mastitis</li>
+            <li>All Types of colic pain</li>
+            <li>Any other Infections</li>
+            <li>Pneumonia & H.S.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal6" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Grow-UP-Forte</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each 10 ml. contains:</p>
+          <ul>
+            <li>Vitamin A 2,00,000 IU</li>
+            <li>Vitamin D3 1,00,000 IU</li>
+            <li>Vitamin C 500 mg.</li>
+            <li>Vitamin E 500 mg.</li>
+            <li>Vitamin H 5000 mcg.</li>
+            <li>Zinc 200 mg.</li>
+            <li>Cobalt 100 mg.</li>
+            <li>Copper sulphate 2000 mcg.</li>
+            <li>Selenium 100 mcg.</li>
+            <li>Energy value 65 kcal</li>
+          </ul>
+          <p><strong>Fortified with calcinated base.</strong></p>
+          <p><strong>Dosage:</strong> Cattle: 10-15 ml. OD, Dogs/cats: 3 to 5 ml. OD</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Udder development</li>
+            <li>Re-condition the Udder</li>
+            <li>Mastitis</li>
+            <li>Increases milk yield</li>
+            <li>Skin & coat conditioner</li>
+            <li>Relieves Stress</li>
+            <li>Removes infertility</li>
+            <li>Stop hair loss</li>
+            <li>Strengthen udder tissues and muscles</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal7" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Re-Fresh Bolus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Levamisole Hydrochloride 2gms, Oxyclozanide 4gms</p>
+          <p><strong>Dosage:</strong> Large Animals: 1 Bolus </p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Helps to Removes Infertility</li>
+            <li>Helps Improving Growth and Production</li>
+            <li>Does not Cause Stress to Animals</li>
+            <li>Safe can be Used in Young, Pregnant and Lactating Animals</li>
+            <li>Also Effective against Liver Fluke</li>
+            <li>Improves Immunity power</li>
+            <li>To Maintain Milk Production</li>
+            <li>Improve Feed Conversion Efficiency</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal8" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Sapasmvet</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each ml.: Piroxicam 10 mg., Pitofenone Hydrochloride 2 mg. & Fenpiverinium
+            Bromide 0.02 mg./ml Injection</p>
+          <p><strong>Dosage:</strong>Large animals 20-30 ml. in a Day Or As Directed by Veterinarian</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Spasm, Colic and Prolapse</li>
+            <li>Painful Conditions :- Dystocia , torsin , Retention of Placenta</li>
+            <li>Straining & Tenesmus</li>
+            <li>Relaxes the Smooth muscles</li>
+            <li>Post partum pain</li>
+            <li>Supportive in surra</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal9" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Topvet-Bolus(Vet.)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Flunixin meglumine USP 1000mg. Eq. to Flunixin 602mg. Per Bolus</p>
+          <p><strong>Dosage:</strong> Large Animals: 2 Bolus OD, Small Animals: 1 Bolus OD Or As Directed by
+            Veterinarian</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Mastitis & Metritis.</li>
+            <li>Pyrexia and Trauma</li>
+            <li>Respiratory Disorder.</li>
+            <li>Lameness and Arthritis.</li>
+            <li>All Types of Colic & Pain</li>
+            <li>All Type of Inflammation.</li>
+            <li>Hemorrhagic Septicemia (H.S.)</li>
+          </ul>
+
+          <p><strong>Benefits:</strong></p>
+          <ul>
+            <li>A class cyclo-oxygenase inhibitory NSAID ( acts against both cox1 and cox2 ).</li>
+            <li>Effective against colic pain, billiary colic and renal Colic</li>
+            <li>No need for morning or evening , just once a day.</li>
+            <li>No added paracetamol in this as it is not needed.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal10" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tiflox TZ</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each bolus contains: Ofloxacin- 1200mg., Tinidazole- 2700mg.</p>
+          <p><strong>Dosage:</strong> Large animals: 1 bolus B.D., Small Animals: ½ bolus B.D.</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Diarrhoea and dysentery</li>
+            <li>UGTI: Metritis & Pyometra.</li>
+            <li>Respiratory tract infections: bronchopneumonia & Pneumonia</li>
+            <li>GITI: dysentery, typhoid, paratyphoid & enteritis.</li>
+            <li>Dermal Infections: Wound & abscesses.</li>
+            <li>Secondary bacterial complications of viral disease.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal11" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">ABEN Injection</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each ml. Ofloxacin-100mg.</p>
+          <p><strong>Dosage:</strong> 3-5 mg. per kg. B. Wt. or as per the recommendation of veterinarian.</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Mastitis & Metritis</li>
+            <li>Diarrhoea and dysentery</li>
+            <li>Respiratory tract infections</li>
+            <li>Dermal Infections</li>
+            <li>Secondary Bacterial Infections</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal12" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tiflox-OZE IU.</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each 5 ml. Contains: Ofloxacin 50 mg, Ornidazole 125 mg., Vitamin E 25 mg.
+            and Urea 500 mg.</p>
+          <p><strong>Dosage:</strong> 60-100 ml daily for 3 days Or as directed by the veterinarian.</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Metritis</li>
+            <li>Pyometra</li>
+            <li>Repeat breeding</li>
+            <li>Retention of placenta</li>
+            <li>Endometritis</li>
+            <li>Threatened absorptions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal13" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tiflox-SP–new-Bolus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each bolus contains Ofloxacin -1200mg., Serratiopeptidase -120 mg.</p>
+          <p><strong>Dosage:</strong> Large Animals: 1 Bolus BID, Small Animals: ½ Bolus BID</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Mastitis & metritis</li>
+            <li>Diarrhoea and dysentery</li>
+            <li>Pneumonia & H.S.</li>
+            <li>Dermal infections</li>
+            <li>Secondary bacterial infections</li>
+            <li>Stenosis of Teat Canal</li>
+            <li>Any other infections</li>
+          </ul>
+          <p><strong>Benefits:</strong></p>
+          <p class="text-primary fw-bold">Ofloxacin</p>
+          <p>Higher Bioavailability. (Approx. 98%)<br>Faster Absorption.<br>Longer Half –Life.<br>Excretion as unchanged
+            drug in urine. <br> Steady state concentration achieved after 4 doses</p>
+          <p class="text-primary fw-bold">Serratiopeptidase</p>
+          <p>Liquefying fibrin clots.<br>Reduces Oedema.<br>Breaks abnormal protein.<br>Improves blood circulation.
+            <br>Anti-inflammatory and pain blocking Benefits <br> Fast supply of medicines to the site of infections
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal14" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Topvet-INJ</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each ml. contains: Piroxicam 20 mg., paracetamol 150 mg.</p>
+          <p><strong>Dosage:</strong> 0.7 to 1 mg. /kg. b. wt.</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Mastitis & metritis</li>
+            <li>Lameness</li>
+            <li>All type of inflammation</li>
+            <li>Respiratory conditions</li>
+            <li>Arthritis</li>
+            <li>Pyrexia</li>
+            <li>Colic</li>
+            <li>Pneumonia</li>
+            <li>Trauma</li>
+            <li>Hemorrhagic septicemia</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal15" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">AI-CONCIV FORTE</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Made from a unique combination of herbs and vitamins</p>
+          <p><strong>Dosage:</strong> 300ml. before/with</p>
+          <p><strong>Indication:</strong></p>
+          <ul>
+            <li>Helps to reduce uterine subclinical (minor) infections.</li>
+            <li>Helps to improve sperm motility & longevity.</li>
+            <li>Helps for ovulation & as an Antioxidants.</li>
+            <li>Helps to reduce inflammations.</li>
+            <li>Helps to improve uterine tone by improving uterine turgidity.</li>
+            <li>Helps to increase the uterine secretions.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal16" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Charkol</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Quick Action and Fast Relief Each ml. contains</p>
+          <ul>
+            <li>Activated charcoal – 300 mg.</li>
+            <li>Lactitol– 30 mg</li>
+            <li>Cassia Fistula– 30 mg</li>
+          </ul>
+          <p><strong>Dosage:</strong> 0.5 to 1 ml. per kg. B.W.</p>
+          <p><strong>Indications:</strong></p>
+          <ul>
+            <li>Diarrhea</li>
+            <li>Poisoning</li>
+            <li>Impaction</li>
+            <li>Acidosis</li>
+            <li>Indigestion</li>
+            <li>Bloat & tympany</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal17" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Jugali-Ultra-Powder</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong></p>
+          <ul>
+            <li>Fmt Yeast culture 33.5gm.</li>
+            <li>Live yeast cells (saccharomyces cerevisiae) 5 gm.</li>
+            <li>Bacillus subtitles 15billion CFU</li>
+            <li>Bacillus Amyloliquifaciens 15 billion CFU</li>
+            <li>Propionibacterium Freudenreichill 15 billion CFU</li>
+            <li>Lactobacillus acidophillus 2.5 gm</li>
+            <li>Seaflora 5 gm.</li>
+            <li>Amino Acid 10 gm.</li>
+            <li>HSCAS q.s.</li>
+          </ul>
+          <p><strong>Fortified with calcinated base.</strong></p>
+          <p><strong>Dosage:</strong> Large animal: 20gm. BID, Small animal: 10 gm. BID, Mix 1Kg. per ton of feed</p>
+          <p><strong>Benefits of Jugali:</strong></p>
+          <ul>
+            <li>To correct anorexia, off feed & indigestion.</li>
+            <li>Feed utilization.</li>
+            <li>To maintain PH of rumen & intestine.</li>
+            <li>Regulates rumen micro flora.</li>
+            <li>Quick relief in diarrhea.</li>
+            <li>Improves fiber digestion to get maximum production.</li>
+            <li>Amino acid in active (L form) for faster absorption.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal18" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Jugali-Ultra-Bolus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each bolus contains</p>
+          <ul>
+            <li>Fmt Yeast culture 33.5gm.</li>
+            <li>Live yeast cells (saccharomyces cerevisiae) 5 gm.</li>
+            <li>Bacillus subtitles 15billion CFU</li>
+            <li>Bacillus Amyloliquifaciens 15 billion CFU</li>
+            <li>Propionibacterium Freudenreichill 15 billion CFU</li>
+            <li>Lactobacillus acidophillus 2.5 gm</li>
+            <li>Seaflora 5 gm.</li>
+            <li>Amino Acid 10 gm.</li>
+            <li>HSCAS q.s.</li>
+          </ul>
+          <p><strong>Fortified with calcinated base.</strong></p>
+          <p><strong>Dosage:</strong> Large animal: 2 Bolus BID, Small animal: 1 Bolus BID</p>
+          <p><strong>Benefits of jugali:</strong></p>
+          <ul>
+            <li>To correct anorexia, off feed & indigestion.</li>
+            <li>Feed utilization.</li>
+            <li>To maintain PH of rumen & intestine.</li>
+            <li>Regulates rumen micro flora.</li>
+            <li>Quick relief in diarrhea.</li>
+            <li>Improves fiber digestion to get maximum production.</li>
+            <li>Amino acid in active (L form) for faster absorption.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal19" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Re-Fresh Suspension</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Levamisole Hydrochloride 3 % w/v, Oxyclozanide 6% w/v</p>
+          <p><strong>Dosage:</strong> Large & Small Animals: 1ml of Susp. For 4 kg. B. Wt. Or As Directed by
+            Veterinarian</p>
+          <p><strong>Advantages:</strong></p>
+          <ul>
+            <li>Helps to Removes Infertility.</li>
+            <li>Helps Improving Growth and Production.</li>
+            <li>Does not Cause Stress to Animals.</li>
+            <li>Safe can be Used in Young, Pregnant and Lactating Animals.</li>
+            <li>Also Effective against Liver Fluke.</li>
+            <li>Improves Immunity power.</li>
+            <li>To Maintain Milk Production.</li>
+            <li>Improve Feed Conversion Efficiency.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal20" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">ROP Run</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong></p>
+          <ul>
+            <li>Ashok Chhal 7 gm.</li>
+            <li>Ulat kambal 5 gm.</li>
+            <li>Methi 2 gm</li>
+            <li>Piperamool 2 gm.</li>
+            <li>Chitakmook 2gm.</li>
+            <li>Kalaunji 2gm.</li>
+            <li>Ajwain 2 gm.</li>
+            <li>Hermal 2 gm.</li>
+            <li>Sonth 2 gm.</li>
+            <li>Jasus chhal 2 gm.</li>
+            <li>Gajar beej 3 gm.</li>
+            <li>Grita-kumar 2 gm.</li>
+            <li>Mochras 2 gm.</li>
+            <li>Nisotar 1 gm.</li>
+            <li>Daru Haldi 1gm.</li>
+            <li>Jeera 1gm.</li>
+            <li>Jatamansi 1gm.</li>
+            <li>Motha 1gm.</li>
+            <li>Hapusa 1gm.</li>
+            <li>Ishwery 1gm.</li>
+            <li>Kalhari 1gm.</li>
+          </ul>
+          <p><strong>Dosage:</strong> Cow, Buffalo & Mare in case of ROP 200 ml. BID (Morning, Evening) Other Condition
+            100 ml. BID (Morning, Evening) Or As Directed by the Veterinarian.</p>
+          <p><strong>Helps in:</strong></p>
+          <ul>
+            <li>Retention of Placenta. (ROP)</li>
+            <li>Uterine Cleanser By increase Uterine Contractions.</li>
+            <li>Provide Instant energy and Increase milk yield.</li>
+            <li>Post Partum Recovery and Productivity.</li>
+            <li>Restore Uterine Lining and Mass Prevents infection and inflammation.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal21" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Vet. TCM-MIX</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong></p>
+          <ul>
+            <li>Dicalcium Phosphate 750gm.</li>
+            <li>Zinc 10 gm.</li>
+            <li>Manganese 2.5 g</li>
+            <li>Copper 5 g</li>
+            <li>Potassium iodide 400 mg.</li>
+            <li>Calcium carbonate 100 gm.</li>
+            <li>Vitamin A 1000000 IU.</li>
+            <li>Vitamin D3 200000 IU.</li>
+            <li>Vitamin E 1000 IU.</li>
+            <li>Nicotinamide 1 gm.</li>
+            <li>Cobalt 150 mg.</li>
+            <li>Sulphur 7.2 g.</li>
+            <li>Chromium 4 g.</li>
+            <li>Multi enzymes mixture 20 g.</li>
+            <li>Saccharomyces Cerevisiae 20 g.</li>
+            <li>Selenium 5000 mcg.</li>
+            <li>Magnesium 5 g.</li>
+            <li>Sodium Chloride 10 g.</li>
+          </ul>
+          <p><strong>Dosage:</strong> Large Animals: 50-60 gm. Per day , Heifers: 40-50 gm. Per day , <br> Small
+            Animals: 20-30 gm. Per day, <br> Feed: Mix 1.2 kg. per 100 kg.</p>
+          <p><strong>Benefits:</strong></p>
+          <ul>
+            <li>Feed utilization.</li>
+            <li>Overall milk yield.</li>
+            <li>Conception rate.</li>
+            <li>Bone strength.</li>
+            <li>Heat symptoms.</li>
+            <li>General Health condition.</li>
+          </ul>
+
+          <p><strong>Prevents:</strong></p>
+          <ul>
+            <li>Anestrous condition.</li>
+            <li>Repeat breeding.</li>
+            <li>Delayed puberty.</li>
+            <li>Milk fever.</li>
+            <li>Prolapse.</li>
+            <li>Pica .</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal22" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Jugali-Ultra-Gel</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each bolus contains</p>
+          <ul>
+            <li>Fmt Yeast culture 33.5gm.</li>
+            <li>Yeast cells (saccharomyces cerevisiae) 500 mg.</li>
+            <li>Lactobacillus acidophillus 250 mg.</li>
+            <li>Amino Acid 1000 mg.</li>
+            <li>Seaflora 500 mg.</li>
+            <li>Bacillus subtitles 1.5 billion CFU</li>
+            <li>Bacillus Amyloliquifaciens 1.5 billion CFU</li>
+            <li>Propioniterium Freudenreichill 1.5 billion CFU</li>
+          </ul>
+          <p><strong>Fortified with calcinated base.</strong></p>
+          <p><strong>Dosage:</strong> Large animal: 2 Bolus BID, Small animal: 1 Bolus BID</p>
+          <p><strong>Benefits of jugali:</strong></p>
+          <ul>
+            <li>To correct anorexia, off feed & indigestion.</li>
+            <li>Feed utilization.</li>
+            <li>To maintain PH of rumen & intestine.</li>
+            <li>Regulates rumen micro flora.</li>
+            <li>Quick relief in diarrhea.</li>
+            <li>Improves fiber digestion to get maximum production.</li>
+            <li>Amino acid in active (L form) for faster absorption.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal23" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Up-Shot H</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each ml. contains:</p>
+          <ul>
+            <li>Vitamin A 2,00,00 IU</li>
+            <li>Vitamin D3 1,00,00 IU</li>
+            <li>Vitamin C 50 mg.</li>
+            <li>Vitamin E 75 mg.</li>
+            <li>Vitamin H 500 mcg.</li>
+            <li>Vitamin B1 5 mg.</li>
+            <li>Vitamin B6 5 mg.</li>
+            <li>Vitamin B12 10 mcg.</li>
+            <li>Selenium 15 mcg.</li>
+          </ul>
+          <p><strong>Dosage:</strong> Large Animals: 15 ml. per day, Small Animals: 3 to 5 ml. per day, Poultry: 5 to 10
+            ml. per day (Per 100 Birds)</p>
+          <p><strong>Help in:</strong></p>
+          <ul>
+            <li>
+              <p>Growth/Development</p>
+              <ol>
+                <li>Udder development.</li>
+                <li>Body development.</li>
+                <li>Growth of the calf.</li>
+              </ol>
+            </li>
+            <li>
+              <p>Prevents/Removes</p>
+              <ol>
+                <li>Mastitis.</li>
+                <li>Fatigue and weakness.</li>
+                <li>Cracks in Hooves and Horns.</li>
+              </ol>
+            </li>
+            <li>
+              <p>Improves</p>
+              <ol>
+                <li>Feed Intake.</li>
+                <li>Milk and Fat.</li>
+                <li>Appetite.</li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal24" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Dorametic INJ</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong></p>
+          <ul>
+            <li>Each ml contains : Doramectin 10mg. (1% w/v) , Oily base</li>
+          </ul>
+          <p><strong>Dosage:</strong> Cattle , Sheep and Goats 1ml. per 50 kg body weight by IM or SC route or as
+            directed by
+            the veterinarian.</p>
+          </p>
+          <p><strong>Indications/Uses:</strong></p>
+          <ul>
+            <li>Doramecteen is a long-acting injectable solution indicated for the treatment and control of the gastro
+              intestinal roundworms , parafilaria , screwworms , sucking lice , mange mites and single host ticks in
+              cattle</li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal25" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tivile Plus Bolus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each bolus contais : chlorpeniramine maleate: 250mg | Pyridoxine HCL : 120mg
+            | Calcium Bromide : 97.6 mg</p>
+          <p><strong>Dosage:</strong> Large Animals: 1-2 Bolus. Per day, Small Animals: ½ Bolus BID, Or As Directed by
+            Veterinarian</p>
+          <p><strong>Uses / Indications:</strong></p>
+          <ul>
+            <li>
+              <p>chlorpeniramine maleate</p>
+              <ol>
+                <p>Use in reactions , Fever , Insect bites , Drug and Serum Reaction.</p>
+              </ol>
+            </li>
+            <li>
+              <p>Pyridoxine HCL</p>
+              <ol>
+                <p>It is used to treat and prevent vitamin B6 deficiency resulting from poor diet , certain medications
+                  , and some medical conditions. Production of red blood cells and proper functioning of nerves system
+                </p>
+              </ol>
+            </li>
+            <li>
+              <p>Calcium Bromide</p>
+              <ol>
+                <p>Calcium Bromide is a preservative and Mind Sedative.</p>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal26" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Topvet-FM ultra bolus</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Each bolus contains</p>
+          <ul>
+            <li>Fmt Yeast culture 33.5gm.</li>
+            <li>Yeast cells (saccharomyces cerevisiae) 500 mg.</li>
+            <li>Lactobacillus acidophillus 250 mg.</li>
+            <li>Amino Acid 1000 mg.</li>
+            <li>Seaflora 500 mg.</li>
+            <li>Bacillus subtitles 1.5 billion CFU</li>
+            <li>Bacillus Amyloliquifaciens 1.5 billion CFU</li>
+            <li>Propioniterium Freudenreichill 1.5 billion CFU</li>
+          </ul>
+          <p><strong>Fortified with calcinated base.</strong></p>
+          <p><strong>Dosage:</strong> Large animal: 2 Bolus BID, Small animal: 1 Bolus BID</p>
+          <p><strong>Benefits:</strong></p>
+          <ul>
+            <li>To correct anorexia, off feed & indigestion.</li>
+            <li>Feed utilization.</li>
+            <li>To maintain PH of rumen & intestine.</li>
+            <li>Regulates rumen micro flora.</li>
+            <li>Quick relief in diarrhea.</li>
+            <li>Improves fiber digestion to get maximum production.</li>
+            <li>Amino acid in active (L form) for faster absorption.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal27" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Vet. Titanic soap</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Permethrin 8 %, Cetrimide 6% & Aloe vera soap
+          </p>
+          <!-- <p><strong>Dosage:</strong> Large & Small Animals: 1ml of Susp. For 4 kg. B. Wt. Or As Directed by
+            Veterinarian</p> -->
+          <p><strong>Advantages:</strong></p>
+          <ul>
+            <li>Care and protection.</li>
+            <li>Gentle on the skin.</li>
+            <li>Effective in controlling fleas and ticks.</li>
+            <!-- <li>Does not Cause Stress to Animals.</li>
+            <li>Also Effective against Liver Fluke.</li>
+            <li>Improves Immunity power.</li>
+            <li>To Maintain Milk Production.</li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <div class="modal fade" id="modal28" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">UpShot gel</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Composition:</strong> Levamisole Hydrochloride 3 % w/v, Oxyclozanide 6% w/v, Silymarin 1.5 % w/v
+          </p>
+          <p><strong>Dosage:</strong> Repeat after 12 hours (BID) Or As Directed by
+            Veterinarian</p>
+          <p><strong>Advantages:</strong></p>
+          <ul>
+            <li>For treatment of milk fever and Hypocalcemia.</li>
+            <li>Prevention of milk fever and Hypocalcemia.</li>
+            <li>To improve milk yield.</li>
+            <li>Prevention of Ketosis.</li>
+            <li>Provides five time more calcium than I/V calcium injection.</li>
+            <li>Highly useful in prolapse cases.</li>
+            <!-- <li>To Maintain Milk Production.</li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-12 col-md-6 col-lg-3">
+          <img src="images/logo.png" alt="Titanic Logo" style="max-width: 180px; margin-bottom: 1.5rem;" />
+          <div class="contact-info">
+            <p><i class="fa-solid fa-location-dot"></i> 271, Sundar Nagar, Hisar, Haryana 125001</p>
+            <p><i class="fa-solid fa-phone-volume"></i> <a href="tel:+918222813331">+91 82228-13331</a></p>
+            <p><i class="fa-solid fa-envelope"></i> <a href="mailto:titanicppl@gmail.com">titanicppl@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="mailto:titanicppl@gmail.com">Email Support</a></li>
+            <li><a href="Allproducts.html">Our Products</a></li>
+            <li><a href="careers.html">Career Opportunities</a></li>
+            <li><a href="events.html">Events & Updates</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="contact.html">Locate Us</a></li>
+            <li><a href="aboutus.html">About Company</a></li>
+            <li><a href="Our-missionPage.html">Our Mission</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <h3>Working Hours</h3>
+          <p><i class="fa-regular fa-clock"></i> Monday - Saturday<br />10:00 AM - 06:00 PM</p>
+          <p style="color: var(--accent-color); font-weight: 600;">Sunday: CLOSED</p>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+            Copyright &copy; 2025 Titanic Pharmaceuticals | All Rights Reserved
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            Designed with <i class="fa-solid fa-heart" style="color: #ff7a59;"></i> for Animal Health
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+
+</html>
